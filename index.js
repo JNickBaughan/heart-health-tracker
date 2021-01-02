@@ -16,6 +16,15 @@ server.get("/", (_, res) => {
   <style>
   html,body{ width: 98vw; height: 96vh;  }
   #root{ height: 100%; }
+  #date {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
   </style>
   <html>
     <head></head>

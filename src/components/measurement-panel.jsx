@@ -87,7 +87,8 @@ const MeasurementPanel = ({
     diastolicPressureDelta,
     heartRate,
     heartRateDelta
-  }
+  },
+  onSelect
 }) => {
   var d = new Date(date);
 
@@ -100,7 +101,9 @@ const MeasurementPanel = ({
   return (
     <Grid>
       <DatePanel>{d.toDateString()}</DatePanel>
-      <ControlPanel />
+      <ControlPanel>
+        <a onClick={onSelect}>Edit</a>
+      </ControlPanel>
       <TopPanel>
         {systolicPressure} mm Hg
         {renderDelta(systolicPressureDelta, systolicPressure)}

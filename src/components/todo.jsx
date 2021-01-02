@@ -6,10 +6,15 @@ const ToDo = styled.div`
   position: absolute;
   width: 30em;
   height: 40em;
+  z-index: 50;
+`;
+
+const Done = styled.li`
+  text-decoration: line-through;
 `;
 
 const TodoList = () => {
-  const [showTodo, setShowTodo] = React.useState(true);
+  const [showTodo, setShowTodo] = React.useState(false);
   return showTodo ? (
     <ToDo>
       <button
@@ -20,14 +25,16 @@ const TodoList = () => {
         Hide Todo list
       </button>
       <ul>
-        <li>Form</li>
+        <Done>add Form</Done>
         <li>add</li>
         <li>delete</li>
         <li>edit</li>
-        <li>Validation</li>
+        <li>add Yup Validation</li>
         <li>add icons for up down flat</li>
         <li>color code measurements</li>
         <li>add scroll</li>
+        <li>add graphQL(maybe)</li>
+        <li>add patient lookup (maybe)</li>
       </ul>
     </ToDo>
   ) : (

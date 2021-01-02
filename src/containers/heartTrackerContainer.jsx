@@ -5,14 +5,8 @@ import { data } from "../mock-state/results";
 import GlobalState from "../context";
 
 import MeasurementPanel from "../components/measurement-panel";
+import MeasurementForm from "../components/measurement-form";
 import TodoList from "../components/todo";
-
-const ToDo = styled.div`
-  background-color: yellow;
-  position: absolute;
-  width: 30em;
-  height: 40em;
-`;
 
 const Grid = styled.div`
   overflow-y: hidden;
@@ -31,7 +25,6 @@ const FormPanel = styled.div`
   grid-area: form;
   height: 100%;
   width: 100%;
-  background-color: green;
 `;
 
 const GridPanel = styled.div`
@@ -41,8 +34,29 @@ const GridPanel = styled.div`
   border-bottom: 3px solid black;
 `;
 
+const defaultMeasurement = {
+  heartRate: "",
+  systolicPressure: "",
+  diastolicPressure: "",
+  date: "",
+  id: ""
+};
+
 const HeartTrackerContainer = () => {
   const [measurements, setMeasurements] = useState([]);
+  const [selectedMeasurement, setSelectedMeasurement] = useState(
+    defaultMeasurement
+  );
+
+  const select = (id) => {
+    const index = measurements.findIndex(
+      (measurement) => measurement.id === id
+    );
+
+    if (index > -1) {
+      setSelectedMeasurement(measurements[index]);
+    }
+  };
 
   const calculateDelta = (curr, index, arr, field) => {
     return index + 1 < arr.length
@@ -90,10 +104,21 @@ const HeartTrackerContainer = () => {
         <Grid>
           <FormPanel>
             <TodoList />
+            <MeasurementForm
+              measurement={selectedMeasurement}
+              setSelectedMeasurement={setSelectedMeasurement}
+            />
           </FormPanel>
           <GridPanel>
             {measurements.map((measurement) => {
-              return <MeasurementPanel measurement={measurement} />;
+              return (
+                <MeasurementPanel
+                  onSelect={() => {
+                    select(measurement.id);
+                  }}
+                  measurement={measurement}
+                />
+              );
             })}
           </GridPanel>
         </Grid>

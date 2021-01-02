@@ -5,23 +5,27 @@ module.exports = {
   entry: "./src/index",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js",
+    filename: "bundle.js"
   },
   resolve: {
-    extensions: [".js", ".jsx", ".json"],
+    extensions: [".js", ".jsx", ".json"]
   },
   module: {
     rules: [
       {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"]
+      },
+      {
         test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
-        loader: "babel-loader",
+        loader: "babel-loader"
       },
       {
         test: /\.png|jpg$/,
         exclude: /node_modules/,
-        loader: "file-loader",
-      },
-    ],
-  },
+        loader: "file-loader"
+      }
+    ]
+  }
 };

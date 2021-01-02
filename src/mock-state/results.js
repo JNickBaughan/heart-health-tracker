@@ -29,7 +29,6 @@ export const data = [
     date: 66760960612,
     id: uuidv4()
   },
-
   {
     heartRate: 95,
     systolicPressure: 155,
@@ -37,7 +36,6 @@ export const data = [
     date: 86760960612,
     id: uuidv4()
   },
-
   {
     heartRate: 95,
     systolicPressure: 155,
