@@ -68,6 +68,16 @@ const HeartTrackerContainer = () => {
     return measurements.sort((a, b) => new Date(b.date) - new Date(a.date));
   };
 
+  const deleteMeasurement = (id) => {
+    setMeasurements(
+      addDeltas(
+        sortMeasurements([
+          ...measurements.filter((measurement) => measurement.id !== id)
+        ])
+      )
+    );
+  };
+
   const addDeltas = (measurements) => {
     return measurements.map((measurement, index, arr) => {
       return {
@@ -123,6 +133,9 @@ const HeartTrackerContainer = () => {
                 <MeasurementPanel
                   onSelect={() => {
                     select(measurement.id);
+                  }}
+                  deleteMeasurement={() => {
+                    deleteMeasurement(measurement.id);
                   }}
                   measurement={measurement}
                 />

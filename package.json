@@ -34,6 +34,7 @@
   "scripts": {
     "start": "node index.js",
     "build-frontend": "webpack --config webpack.config.js",
-    "watch:frontend": "webpack --watch --config webpack.config.js"
+    "watch:frontend": "webpack --watch --config webpack.config.js",
+    "copy-content": "node build-scripts/copy-content.js"
   }
 }

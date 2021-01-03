@@ -36,6 +36,13 @@ const ControlPanel = styled.div`
   grid-area: controls;
   height: 100%;
   width: 100%;
+  margin: 0 auto;
+`;
+
+const ActionIcon = styled.div`
+  width: 28px;
+  height: ${(props) => `${props.height}px`};
+  background: url(${(props) => props.url});
 `;
 
 const TopPanel = styled.div`
@@ -52,9 +59,7 @@ const TopPanel = styled.div`
 const BottomPanel = styled.div`
   position: relative;
   grid-area: bottom;
-
   text-align: center;
-
   line-height: 43px;
   white-space: nowrap;
   font-size: 1.6em;
@@ -88,7 +93,8 @@ const MeasurementPanel = ({
     heartRate,
     heartRateDelta
   },
-  onSelect
+  onSelect,
+  deleteMeasurement
 }) => {
   var d = new Date(date);
 
@@ -102,7 +108,18 @@ const MeasurementPanel = ({
     <Grid>
       <DatePanel>{d.toDateString()}</DatePanel>
       <ControlPanel>
-        <a onClick={onSelect}>Edit</a>
+        <ActionIcon
+          area="edit"
+          url={"/edit.png"}
+          height={33}
+          onClick={onSelect}
+        />
+        <ActionIcon
+          area="delete"
+          url={"/delete.png"}
+          height={26}
+          onClick={deleteMeasurement}
+        />
       </ControlPanel>
       <TopPanel>
         {systolicPressure} mm Hg
