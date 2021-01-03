@@ -17,7 +17,9 @@ const Input = styled.input`
 const MeasurementForm = ({
   measurement,
   setSelectedMeasurement,
-  addMeasurement
+  addMeasurement,
+  updateMeasurement,
+  inEditMode
 }) => {
   const formik = useFormik({
     initialValues: { ...measurement },
@@ -29,6 +31,10 @@ const MeasurementForm = ({
       }));
     },
     onSubmit: (values) => {
+      if (inEditMode) {
+        updateMeasurement(values);
+        return;
+      }
       addMeasurement(values);
     }
   });
@@ -84,7 +90,9 @@ const MeasurementForm = ({
       />
       <br />
       <br />
-      <button onClick={formik.handleSubmit}>Submit</button>
+      <button onClick={formik.handleSubmit}>
+        {(inEditMode && "Update") || "Submit"}
+      </button>
     </div>
   );
 };

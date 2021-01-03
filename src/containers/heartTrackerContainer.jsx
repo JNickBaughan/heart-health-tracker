@@ -8,6 +8,8 @@ import MeasurementPanel from "../components/measurement-panel";
 import MeasurementForm from "../components/measurement-form";
 import TodoList from "../components/todo";
 
+import { v4 as uuidv4 } from "uuid";
+
 const Grid = styled.div`
   overflow-y: hidden;
   overflow-x: hidden;
@@ -47,6 +49,7 @@ const HeartTrackerContainer = () => {
   const [selectedMeasurement, setSelectedMeasurement] = useState(
     defaultMeasurement
   );
+  const [inEditMode, setInEditMode] = useState(false);
 
   const select = (id) => {
     const index = measurements.findIndex(
@@ -55,6 +58,7 @@ const HeartTrackerContainer = () => {
 
     if (index > -1) {
       setSelectedMeasurement(measurements[index]);
+      setInEditMode(true);
     }
   };
 
@@ -99,11 +103,34 @@ const HeartTrackerContainer = () => {
     });
   };
 
-  const addMeasurement = (measurement) => {
+  const updateMeasurement = (update) => {
     setMeasurements(
-      addDeltas(sortMeasurements([...measurements, measurement]))
+      addDeltas(
+        sortMeasurements(
+          measurements.map((measurement) => {
+            return measurement.id === update.id ? update : measurement;
+          })
+        )
+      )
     );
     setSelectedMeasurement(defaultMeasurement);
+    setInEditMode(false);
+  };
+
+  const addMeasurement = (measurement) => {
+    setMeasurements(
+      addDeltas(
+        sortMeasurements([
+          ...measurements,
+          {
+            ...measurement,
+            id: uuidv4()
+          }
+        ])
+      )
+    );
+    setSelectedMeasurement(defaultMeasurement);
+    setInEditMode(false);
   };
 
   useEffect(() => {
@@ -125,6 +152,8 @@ const HeartTrackerContainer = () => {
               measurement={selectedMeasurement}
               setSelectedMeasurement={setSelectedMeasurement}
               addMeasurement={addMeasurement}
+              updateMeasurement={updateMeasurement}
+              inEditMode={inEditMode}
             />
           </FormPanel>
           <GridPanel>
@@ -132,6 +161,7 @@ const HeartTrackerContainer = () => {
               return (
                 <MeasurementPanel
                   onSelect={() => {
+                    setInEditMode(true);
                     select(measurement.id);
                   }}
                   deleteMeasurement={() => {
