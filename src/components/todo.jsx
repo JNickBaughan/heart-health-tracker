@@ -28,7 +28,7 @@ const TodoList = () => {
         <Done>add Form</Done>
         <Done>add</Done>
         <Done>delete</Done>
-        <li>edit</li>
+        <Done>edit</Done>
         <li>add a confirmation modal for delete</li>
         <li>add Yup Validation</li>
         <Done>add icons for delete and edit</Done>
