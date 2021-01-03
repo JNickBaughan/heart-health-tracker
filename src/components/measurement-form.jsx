@@ -29,7 +29,6 @@ const MeasurementForm = ({
       }));
     },
     onSubmit: (values) => {
-      console.dir(values);
       addMeasurement(values);
     }
   });
