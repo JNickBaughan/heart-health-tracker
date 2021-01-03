@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useFormik } from "formik";
 import DatePicker from "react-datepicker";
+import Button from "./common/button";
 import "react-datepicker/dist/react-datepicker.css";
 
 const Input = styled.input`
@@ -90,9 +91,10 @@ const MeasurementForm = ({
       />
       <br />
       <br />
-      <button onClick={formik.handleSubmit}>
-        {(inEditMode && "Update") || "Submit"}
-      </button>
+      <Button
+        onClick={formik.handleSubmit}
+        title={(inEditMode && "Update") || "Submit"}
+      />
     </div>
   );
 };

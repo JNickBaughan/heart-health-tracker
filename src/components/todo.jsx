@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Button from "./common/button";
 
 const ToDo = styled.div`
   background-color: yellow;
@@ -17,13 +18,12 @@ const TodoList = () => {
   const [showTodo, setShowTodo] = React.useState(false);
   return showTodo ? (
     <ToDo>
-      <button
+      <Button
         onClick={() => {
           setShowTodo(!showTodo);
         }}
-      >
-        Hide Todo list
-      </button>
+        title={"Hide Todo list"}
+      />
       <ul>
         <Done>add Form</Done>
         <Done>add</Done>
@@ -37,17 +37,17 @@ const TodoList = () => {
         <li>add scroll</li>
         <li>add fancy input</li>
         <li>add graphQL(maybe)</li>
+        <li>add dynamo backend(maybe)</li>
         <li>add patient lookup (maybe)</li>
       </ul>
     </ToDo>
   ) : (
-    <button
+    <Button
       onClick={() => {
         setShowTodo(!showTodo);
       }}
-    >
-      Show Todo list
-    </button>
+      title={"Show Todo list"}
+    />
   );
 };
 

@@ -13,6 +13,8 @@ const Grid = styled.div`
   column-gap: 3px;
   row-gap: 3px;
   border: 1px solid black;
+  margin-bottom: 6px;
+  padding-left: 16px;
   grid-template-areas:
     "date top rate"
     "date top rate"
