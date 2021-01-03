@@ -89,6 +89,13 @@ const HeartTrackerContainer = () => {
     });
   };
 
+  const addMeasurement = (measurement) => {
+    setMeasurements(
+      addDeltas(sortMeasurements([...measurements, measurement]))
+    );
+    setSelectedMeasurement(defaultMeasurement);
+  };
+
   useEffect(() => {
     // TODO: setup graphQL and make call here
     setMeasurements(addDeltas(sortMeasurements(data)));
@@ -107,6 +114,7 @@ const HeartTrackerContainer = () => {
             <MeasurementForm
               measurement={selectedMeasurement}
               setSelectedMeasurement={setSelectedMeasurement}
+              addMeasurement={addMeasurement}
             />
           </FormPanel>
           <GridPanel>

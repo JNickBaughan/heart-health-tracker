@@ -14,7 +14,11 @@ const Input = styled.input`
   box-sizing: border-box;
 `;
 
-const MeasurementForm = ({ measurement, setSelectedMeasurement }) => {
+const MeasurementForm = ({
+  measurement,
+  setSelectedMeasurement,
+  addMeasurement
+}) => {
   const formik = useFormik({
     initialValues: { ...measurement },
     enableReinitialize: true,
@@ -26,6 +30,7 @@ const MeasurementForm = ({ measurement, setSelectedMeasurement }) => {
     },
     onSubmit: (values) => {
       console.dir(values);
+      addMeasurement(values);
     }
   });
   return (
@@ -44,7 +49,7 @@ const MeasurementForm = ({ measurement, setSelectedMeasurement }) => {
         onChange={(date) => {
           setSelectedMeasurement((prevDetails) => ({
             ...prevDetails,
-            date: date
+            date
           }));
         }}
       />
@@ -78,6 +83,9 @@ const MeasurementForm = ({ measurement, setSelectedMeasurement }) => {
         onChange={formik.handleChange}
         value={formik.values.heartRate}
       />
+      <br />
+      <br />
+      <button onClick={formik.handleSubmit}>Submit</button>
     </div>
   );
 };
