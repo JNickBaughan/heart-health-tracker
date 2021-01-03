@@ -26,13 +26,14 @@ const TodoList = () => {
       </button>
       <ul>
         <Done>add Form</Done>
-        <li>add</li>
+        <Done>add</Done>
         <li>delete</li>
         <li>edit</li>
         <li>add Yup Validation</li>
         <li>add icons for up down flat</li>
         <li>color code measurements</li>
         <li>add scroll</li>
+        <li>add fancy input</li>
         <li>add graphQL(maybe)</li>
         <li>add patient lookup (maybe)</li>
       </ul>
