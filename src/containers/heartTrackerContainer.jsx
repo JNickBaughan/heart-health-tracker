@@ -7,6 +7,8 @@ import GlobalState from "../context";
 import MeasurementPanel from "../components/measurement-panel";
 import MeasurementForm from "../components/measurement-form";
 import TodoList from "../components/todo";
+import Modal from "../components/common/modal";
+import Button from "../components/common/button";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -21,6 +23,7 @@ const Grid = styled.div`
   grid-template-rows: 1fr;
   column-gap: 3px;
   grid-template-areas: "form grid grid grid";
+  filter: ${(props) => `${props.blur ? "blur(3px)" : ""}`};
 `;
 
 const FormPanel = styled.div`
@@ -50,6 +53,8 @@ const HeartTrackerContainer = () => {
     defaultMeasurement
   );
   const [inEditMode, setInEditMode] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [measurementToDelete, setMeasurementToDelete] = useState(null);
 
   const select = (id) => {
     const index = measurements.findIndex(
@@ -145,7 +150,7 @@ const HeartTrackerContainer = () => {
           measurements
         }}
       >
-        <Grid>
+        <Grid blur={showConfirmation}>
           <FormPanel>
             <TodoList />
             <MeasurementForm
@@ -165,7 +170,8 @@ const HeartTrackerContainer = () => {
                     select(measurement.id);
                   }}
                   deleteMeasurement={() => {
-                    deleteMeasurement(measurement.id);
+                    setMeasurementToDelete(measurement.id);
+                    setShowConfirmation(true);
                   }}
                   measurement={measurement}
                 />
@@ -174,6 +180,28 @@ const HeartTrackerContainer = () => {
           </GridPanel>
         </Grid>
       </GlobalState.Provider>
+      {showConfirmation && (
+        <Modal>
+          <p>Are you sure you want to delete this measurement?</p>
+          <br />
+          <br />
+          <br />
+          <br />
+          <Button
+            onClick={() => {
+              setShowConfirmation(false);
+            }}
+            title={"Cancel"}
+          />
+          <Button
+            onClick={() => {
+              deleteMeasurement(measurementToDelete);
+              setShowConfirmation(false);
+            }}
+            title={"Delete"}
+          />
+        </Modal>
+      )}
     </React.Fragment>
   );
 };

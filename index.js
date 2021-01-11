@@ -14,7 +14,7 @@ server.use(middlewares);
 server.get("/", (_, res) => {
   return res.send(`<!DOCTYPE html>
   <style>
-  html,body{ width: 98vw; height: 96vh;  }
+  html,body{ width: 98vw; height: 96vh; font-family: Verdana, sans-serif;  }
   #root{ height: 100%; }
   #date {
     width: 100%;

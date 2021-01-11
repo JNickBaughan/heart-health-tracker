@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useFormik } from "formik";
 import DatePicker from "react-datepicker";
 import Button from "./common/button";
+import Modal from "./common/modal";
 import "react-datepicker/dist/react-datepicker.css";
 
 const Input = styled.input`
