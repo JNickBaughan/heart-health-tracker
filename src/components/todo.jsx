@@ -30,7 +30,8 @@ const TodoList = () => {
         <Done>delete</Done>
         <Done>edit</Done>
         <Done>add a confirmation modal for delete</Done>
-        <li>add Yup Validation</li>
+        <Done>add Yup Validation</Done>
+        <li>add validation for date</li>
         <Done>add icons for delete and edit</Done>
         <li>add icons for up down flat</li>
         <li>color code measurements</li>

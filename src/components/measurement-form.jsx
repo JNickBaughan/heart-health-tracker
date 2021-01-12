@@ -1,20 +1,10 @@
 import React from "react";
-import styled from "styled-components";
 import { useFormik } from "formik";
 import DatePicker from "react-datepicker";
 import Button from "./common/button";
-import Modal from "./common/modal";
+import ValidatableInput from "./common/input";
 import "react-datepicker/dist/react-datepicker.css";
-
-const Input = styled.input`
-  width: 45%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-`;
+import HeartHealthSchema from "../validation";
 
 const MeasurementForm = ({
   measurement,
@@ -38,8 +28,10 @@ const MeasurementForm = ({
         return;
       }
       addMeasurement(values);
-    }
+    },
+    validationSchema: HeartHealthSchema
   });
+
   return (
     <div>
       <label>Date</label>
@@ -62,35 +54,37 @@ const MeasurementForm = ({
       />
       <br />
       <br />
-      <label>Systolic Pressure</label>
-      <br />
-      <Input
-        id="systolicPressure"
-        name="systolicPressure"
-        onChange={formik.handleChange}
+      <ValidatableInput
+        hasError={
+          !!formik.errors.systolicPressure && formik.touched.systolicPressure
+        }
+        label={"Systolic Pressure"}
+        id={"systolicPressure"}
+        handleChange={formik.handleChange}
+        handleBlur={formik.handleBlur}
         value={formik.values.systolicPressure}
+        errorMessage={formik.errors.systolicPressure}
       />
-      <br />
-      <br />
-      <label>Diastolic Pressure</label>
-      <br />
-      <Input
-        id="diastolicPressure"
-        name="diastolicPressure"
-        onChange={formik.handleChange}
+      <ValidatableInput
+        hasError={
+          !!formik.errors.diastolicPressure && formik.touched.diastolicPressure
+        }
+        label={"Diastolic Pressure"}
+        id={"diastolicPressure"}
+        handleChange={formik.handleChange}
+        handleBlur={formik.handleBlur}
         value={formik.values.diastolicPressure}
+        errorMessage={formik.errors.diastolicPressure}
       />
-      <br />
-      <br />
-      <label>Heart Rate</label>
-      <br />
-      <Input
-        id="heartRate"
-        name="heartRate"
-        onChange={formik.handleChange}
+      <ValidatableInput
+        hasError={!!formik.errors.heartRate && formik.touched.heartRate}
+        label={"Heart Rate"}
+        id={"heartRate"}
+        handleChange={formik.handleChange}
+        handleBlur={formik.handleBlur}
         value={formik.values.heartRate}
+        errorMessage={formik.errors.heartRate}
       />
-      <br />
       <br />
       <Button
         onClick={formik.handleSubmit}
