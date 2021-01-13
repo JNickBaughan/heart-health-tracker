@@ -16,6 +16,7 @@ server.get("/", (_, res) => {
   <style>
   html,body{ width: 98vw; height: 96vh; font-family: Verdana, sans-serif;  }
   #root{ height: 100%; }
+  .error { border: 1px solid red !important; }
   #date {
     width: 100%;
     padding: 12px 20px;

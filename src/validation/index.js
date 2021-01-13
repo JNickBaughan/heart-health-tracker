@@ -9,7 +9,8 @@ const HeartHealthSchema = Yup.object().shape({
     .required("Systolic Pressure is Required"),
   diastolicPressure: Yup.number()
     .typeError("Diastolic Pressure must be numeric")
-    .required("Diastolic Pressure is Required")
+    .required("Diastolic Pressure is Required"),
+  date: Yup.string().nullable().required("Date is Required")
 });
 
 export default HeartHealthSchema;

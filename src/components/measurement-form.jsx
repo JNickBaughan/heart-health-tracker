@@ -1,6 +1,5 @@
 import React from "react";
 import { useFormik } from "formik";
-import DatePicker from "react-datepicker";
 import Button from "./common/button";
 import ValidatableInput from "./common/input";
 import "react-datepicker/dist/react-datepicker.css";
@@ -34,26 +33,29 @@ const MeasurementForm = ({
 
   return (
     <div>
-      <label>Date</label>
-      <br />
-      <DatePicker
-        id="date"
-        type="date"
-        selected={
-          (formik.values &&
-            formik.values.date &&
-            new Date(formik.values.date)) ||
-          null
+      <ValidatableInput
+        hasError={
+          !!formik.errors.systolicPressure && formik.touched.systolicPressure
         }
-        onChange={(date) => {
+        label={"Date"}
+        id={"date"}
+        handleChange={(date) => {
           setSelectedMeasurement((prevDetails) => ({
             ...prevDetails,
             date
           }));
         }}
+        handleBlur={formik.handleBlur}
+        value={
+          (formik.values &&
+            formik.values.date &&
+            new Date(formik.values.date)) ||
+          ""
+        }
+        errorMessage={formik.errors.date}
+        hasError={!!formik.errors.date && formik.touched.date}
+        isDate={true}
       />
-      <br />
-      <br />
       <ValidatableInput
         hasError={
           !!formik.errors.systolicPressure && formik.touched.systolicPressure

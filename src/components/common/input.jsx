@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import DatePicker from "react-datepicker";
 
 const Wrapper = styled.div`
   padding: 10px 2px;
 `;
 
 const Input = styled.input`
-  width: 45%;
+  width: 43%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
@@ -34,20 +35,33 @@ const ValidatableInput = ({
   handleChange,
   handleBlur,
   value,
-  errorMessage
+  errorMessage,
+  isDate = false
 }) => {
   return (
     <Wrapper>
       <Label hasError={hasError}>{label}</Label>
       <br />
-      <Input
-        id={id}
-        name={id}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        value={value}
-        hasError={hasError}
-      />
+      {isDate ? (
+        <DatePicker
+          id={id}
+          type={id}
+          selected={value}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          className={hasError ? "error" : ""}
+        />
+      ) : (
+        <Input
+          id={id}
+          name={id}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={value}
+          hasError={hasError}
+        />
+      )}
+
       {hasError && <ErrorMessageDiv>{errorMessage}</ErrorMessageDiv>}
     </Wrapper>
   );
