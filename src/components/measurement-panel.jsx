@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import { getColorCodeForSystolic, getColorCodeForDiastolic } from "../helpers";
+
 const Grid = styled.div`
   overflow-y: hidden;
   overflow-x: hidden;
@@ -56,6 +58,7 @@ const TopPanel = styled.div`
   line-height: 100px;
   white-space: nowrap;
   font-size: 1.6em;
+  color: ${(props) => props.color};
 `;
 
 const BottomPanel = styled.div`
@@ -65,6 +68,7 @@ const BottomPanel = styled.div`
   line-height: 43px;
   white-space: nowrap;
   font-size: 1.6em;
+  color: ${(props) => props.color};
 `;
 const RatePanel = styled.div`
   position: relative;
@@ -137,11 +141,13 @@ const MeasurementPanel = ({
           onClick={deleteMeasurement}
         />
       </ControlPanel>
-      <TopPanel>
+      <TopPanel color={getColorCodeForSystolic(parseInt(systolicPressure, 10))}>
         {systolicPressure} mm Hg
         {renderDelta(systolicPressureDelta, systolicPressure)}
       </TopPanel>
-      <BottomPanel>
+      <BottomPanel
+        color={getColorCodeForDiastolic(parseInt(diastolicPressure, 10))}
+      >
         {diastolicPressure} mm Hg
         {renderDelta(diastolicPressureDelta, diastolicPressure)}
       </BottomPanel>
