@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const Grid = styled.div`
   overflow-y: hidden;
   overflow-x: hidden;
   margin: 0 auto;
-  height: 8em;
+  height: 9.5em;
   width: 85em;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -78,11 +78,25 @@ const RatePanel = styled.div`
 
 const DeltaDisplay = styled.span`
   color: ${(props) =>
-    props.delta > 0 ? "red" : props.delta < 0 ? "green" : "blue"};
+    props.delta > 0 ? "red" : props.delta < 0 ? "blue" : "grey"};
   font-size: 0.5em;
   position: absolute;
-  bottom: 20px;
-  right: 140px;
+  top: -15px;
+  right: 120px;
+  &:after {
+    border-right: solid 8px transparent;
+    border-left: solid 8px transparent;
+    border-top: ${(props) =>
+      props.delta > 0 ? "" : props.delta < 0 ? "solid 8px blue" : ""};
+    border-bottom: ${(props) =>
+      props.delta > 0 ? "solid 8px red" : props.delta < 0 ? "" : ""};
+    position: relative;
+    z-index: -1;
+    content: "";
+    top: ${(props) =>
+      props.delta > 0 ? "-12px" : props.delta < 0 ? "12px" : ""};
+    left: 7px;
+  }
 `;
 
 const MeasurementPanel = ({
