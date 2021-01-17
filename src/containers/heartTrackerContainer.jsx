@@ -10,6 +10,7 @@ import Modal from "../components/common/modal";
 import Button from "../components/common/button";
 
 import { listHeartMeasurements } from "../graphql/queries";
+import { createHeartMeasurement } from "../graphql/mutations";
 import { API, graphqlOperation } from "aws-amplify";
 
 import { v4 as uuidv4 } from "uuid";
@@ -125,19 +126,36 @@ const HeartTrackerContainer = () => {
   };
 
   const addMeasurement = (measurement) => {
-    setMeasurements(
-      addDeltas(
-        sortMeasurements([
-          ...measurements,
-          {
-            ...measurement,
-            id: uuidv4()
-          }
-        ])
-      )
-    );
-    setSelectedMeasurement(defaultMeasurement);
-    setInEditMode(false);
+    API.graphql(
+      graphqlOperation(createHeartMeasurement, {
+        input: {
+          heartRate: measurement.heartRate,
+          systolicPressure: measurement.systolicPressure,
+          diastolicPressure: measurement.diastolicPressure,
+          date: new Date(measurement.date).toISOString().split("T")[0]
+        }
+      })
+    )
+      .then((result) => {
+        const {
+          data: { createHeartMeasurement }
+        } = result;
+        setMeasurements(
+          addDeltas(
+            sortMeasurements([
+              ...measurements,
+              {
+                ...createHeartMeasurement
+              }
+            ])
+          )
+        );
+        setSelectedMeasurement(defaultMeasurement);
+        setInEditMode(false);
+      })
+      .catch(() => {
+        alert("whoops something went wrong!");
+      });
   };
 
   useEffect(() => {
