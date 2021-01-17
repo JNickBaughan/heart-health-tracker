@@ -13,8 +13,6 @@ import { listHeartMeasurements } from "../graphql/queries";
 import { createHeartMeasurement } from "../graphql/mutations";
 import { API, graphqlOperation } from "aws-amplify";
 
-import { v4 as uuidv4 } from "uuid";
-
 const Grid = styled.div`
   overflow-y: hidden;
   overflow-x: hidden;
