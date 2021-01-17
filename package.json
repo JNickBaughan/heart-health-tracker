@@ -21,6 +21,8 @@
     "webpack-cli": "^4.2.0"
   },
   "dependencies": {
+    "aws-amplify": "^3.3.14",
+    "aws-amplify-react": "^4.2.18",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "formik": "^2.2.6",

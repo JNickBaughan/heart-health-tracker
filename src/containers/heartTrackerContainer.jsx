@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-import { data } from "../mock-state/results";
 import GlobalState from "../context";
 
 import MeasurementPanel from "../components/measurement-panel";
@@ -9,6 +8,9 @@ import MeasurementForm from "../components/measurement-form";
 import TodoList from "../components/todo";
 import Modal from "../components/common/modal";
 import Button from "../components/common/button";
+
+import { listHeartMeasurements } from "../graphql/queries";
+import { API, graphqlOperation } from "aws-amplify";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -139,8 +141,15 @@ const HeartTrackerContainer = () => {
   };
 
   useEffect(() => {
-    // TODO: setup graphQL and make call here
-    setMeasurements(addDeltas(sortMeasurements(data)));
+    API.graphql(graphqlOperation(listHeartMeasurements)).then((results) => {
+      const {
+        data: {
+          listHeartMeasurements: { items }
+        }
+      } = results;
+
+      setMeasurements(addDeltas(sortMeasurements(items)));
+    });
   }, []);
 
   return (
