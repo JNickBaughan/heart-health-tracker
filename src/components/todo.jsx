@@ -37,9 +37,14 @@ const TodoList = () => {
         <Done>color code measurements</Done>
         <li>add scroll</li>
         <li>add fancy input</li>
-        <li>add graphQL(maybe)</li>
-        <li>add dynamo backend(maybe)</li>
+        <Done>add graphQL(maybe)</Done>
+        <Done>add patient lookup (maybe)</Done>
+        <li>update css so page doesn't look like crap</li>
         <li>add patient lookup (maybe)</li>
+        <li>add an error message modal</li>
+        <li>wire delete functionality to graphQL and dynamo</li>
+        <li>wire update functionality to graphQL and dynamo</li>
+        <li>make app responsive</li>
       </ul>
     </ToDo>
   ) : (
