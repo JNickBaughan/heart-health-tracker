@@ -1,5 +1,5 @@
 type HeartMeasurement @model {
-  id: ID!
+  id: ID
   date: AWSDate!
   heartRate: Int!
   systolicPressure: Int!

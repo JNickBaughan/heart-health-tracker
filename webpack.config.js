@@ -8,10 +8,16 @@ module.exports = {
     filename: "bundle.js"
   },
   resolve: {
-    extensions: [".js", ".jsx", ".json"]
+    extensions: [".wasm", ".mjs", ".js", ".jsx", ".json"]
   },
   module: {
     rules: [
+      {
+        test: /\.m?jsx?$/,
+        resolve: {
+          fullySpecified: false
+        }
+      },
       {
         test: /\.css$/i,
         use: ["style-loader", "css-loader"]
