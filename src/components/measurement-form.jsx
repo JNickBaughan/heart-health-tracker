@@ -42,14 +42,14 @@ const MeasurementForm = ({
         handleChange={(date) => {
           setSelectedMeasurement((prevDetails) => ({
             ...prevDetails,
-            date
+            date: new Date(date).toISOString().split("T")[0]
           }));
         }}
         handleBlur={formik.handleBlur}
         value={
           (formik.values &&
             formik.values.date &&
-            new Date(formik.values.date)) ||
+            new Date(`${formik.values.date}T00:00:00`)) ||
           ""
         }
         errorMessage={formik.errors.date}

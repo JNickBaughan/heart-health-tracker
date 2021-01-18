@@ -116,7 +116,7 @@ const MeasurementPanel = ({
   onSelect,
   deleteMeasurement
 }) => {
-  var d = new Date(date);
+  var d = new Date(`${date}T00:00:00`);
 
   const renderDelta = (delta, value) => {
     return (

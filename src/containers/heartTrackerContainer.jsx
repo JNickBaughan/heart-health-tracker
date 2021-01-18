@@ -42,6 +42,7 @@ const GridPanel = styled.div`
   height: 100%;
   width: 100%;
   border-bottom: 3px solid black;
+  overflow-y: scroll;
 `;
 
 const defaultMeasurement = {
@@ -231,6 +232,7 @@ const HeartTrackerContainer = () => {
             {measurements.map((measurement) => {
               return (
                 <MeasurementPanel
+                  key={measurement.id}
                   onSelect={() => {
                     setInEditMode(true);
                     select(measurement.id);
