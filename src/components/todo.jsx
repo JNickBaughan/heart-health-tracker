@@ -42,8 +42,8 @@ const TodoList = () => {
         <li>update css so page doesn't look like crap</li>
         <li>add patient lookup (maybe)</li>
         <li>add an error message modal</li>
-        <li>wire delete functionality to graphQL and dynamo</li>
-        <li>wire update functionality to graphQL and dynamo</li>
+        <Done>wire delete functionality to graphQL and dynamo</Done>
+        <Done>wire update functionality to graphQL and dynamo</Done>
         <li>make app responsive</li>
       </ul>
     </ToDo>
