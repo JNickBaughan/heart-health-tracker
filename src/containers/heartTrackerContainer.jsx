@@ -10,7 +10,11 @@ import Modal from "../components/common/modal";
 import Button from "../components/common/button";
 
 import { listHeartMeasurements } from "../graphql/queries";
-import { createHeartMeasurement } from "../graphql/mutations";
+import {
+  createHeartMeasurement,
+  updateHeartMeasurement,
+  deleteHeartMeasurement
+} from "../graphql/mutations";
 import { API, graphqlOperation } from "aws-amplify";
 
 const Grid = styled.div`
@@ -78,14 +82,27 @@ const HeartTrackerContainer = () => {
     return measurements.sort((a, b) => new Date(b.date) - new Date(a.date));
   };
 
-  const deleteMeasurement = (id) => {
-    setMeasurements(
-      addDeltas(
-        sortMeasurements([
-          ...measurements.filter((measurement) => measurement.id !== id)
-        ])
-      )
-    );
+  const deleteMeasurement = (del) => {
+    API.graphql(
+      graphqlOperation(deleteHeartMeasurement, {
+        input: {
+          id: del.id,
+          _version: del._version
+        }
+      })
+    )
+      .then(() => {
+        setMeasurements(
+          addDeltas(
+            sortMeasurements([
+              ...measurements.filter((measurement) => measurement.id !== del.id)
+            ])
+          )
+        );
+      })
+      .catch(() => {
+        alert("whoops something went wrong!");
+      });
   };
 
   const addDeltas = (measurements) => {
@@ -110,17 +127,39 @@ const HeartTrackerContainer = () => {
   };
 
   const updateMeasurement = (update) => {
-    setMeasurements(
-      addDeltas(
-        sortMeasurements(
-          measurements.map((measurement) => {
-            return measurement.id === update.id ? update : measurement;
-          })
-        )
-      )
-    );
-    setSelectedMeasurement(defaultMeasurement);
-    setInEditMode(false);
+    API.graphql(
+      graphqlOperation(updateHeartMeasurement, {
+        input: {
+          id: update.id,
+          heartRate: parseInt(update.heartRate),
+          systolicPressure: parseInt(update.systolicPressure),
+          diastolicPressure: parseInt(update.diastolicPressure),
+          date: new Date(update.date).toISOString().split("T")[0],
+          _version: update._version
+        }
+      })
+    )
+      .then((result) => {
+        const {
+          data: { updateHeartMeasurement }
+        } = result;
+        setMeasurements(
+          addDeltas(
+            sortMeasurements(
+              measurements.map((measurement) => {
+                return measurement.id === updateHeartMeasurement.id
+                  ? updateHeartMeasurement
+                  : measurement;
+              })
+            )
+          )
+        );
+        setSelectedMeasurement(defaultMeasurement);
+        setInEditMode(false);
+      })
+      .catch(() => {
+        alert("whoops something went wrong!");
+      });
   };
 
   const addMeasurement = (measurement) => {
@@ -164,7 +203,9 @@ const HeartTrackerContainer = () => {
         }
       } = results;
 
-      setMeasurements(addDeltas(sortMeasurements(items)));
+      setMeasurements(
+        addDeltas(sortMeasurements(items.filter((item) => !item._deleted)))
+      );
     });
   }, []);
 
@@ -195,7 +236,7 @@ const HeartTrackerContainer = () => {
                     select(measurement.id);
                   }}
                   deleteMeasurement={() => {
-                    setMeasurementToDelete(measurement.id);
+                    setMeasurementToDelete(measurement);
                     setShowConfirmation(true);
                   }}
                   measurement={measurement}
