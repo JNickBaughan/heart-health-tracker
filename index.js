@@ -16,16 +16,22 @@ server.get("/", (_, res) => {
   <style>
   html,body{ width: 98vw; height: 96vh; font-family: Verdana, sans-serif;  }
   #root{ height: 100%; }
-  .error { border: 1px solid red !important; }
+  .react-datepicker-wrapper {
+    position: relative !important;
+    bottom: 9px !important;
+  }
+  #date.error {
+    border-bottom:  1px solid red !important;
+  }
   #date {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+    border: none;
+    border-bottom: 1px black solid !important;
   }
+  .error {  }
   </style>
   <html>
     <head></head>

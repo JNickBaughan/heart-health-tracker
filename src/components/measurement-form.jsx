@@ -12,6 +12,7 @@ const MeasurementForm = ({
   updateMeasurement,
   inEditMode
 }) => {
+  const [submitted, setSubmitted] = React.useState(false);
   const formik = useFormik({
     initialValues: { ...measurement },
     enableReinitialize: true,
@@ -22,11 +23,16 @@ const MeasurementForm = ({
       }));
     },
     onSubmit: (values) => {
+      setSubmitted(true);
       if (inEditMode) {
-        updateMeasurement(values);
+        updateMeasurement(values, () => {
+          setSubmitted(false);
+        });
         return;
       }
-      addMeasurement(values);
+      addMeasurement(values, () => {
+        setSubmitted(false);
+      });
     },
     validationSchema: HeartHealthSchema
   });
@@ -62,10 +68,19 @@ const MeasurementForm = ({
         }
         label={"Systolic Pressure"}
         id={"systolicPressure"}
-        handleChange={formik.handleChange}
+        handleChange={(systolicPressure) => {
+          formik.handleChange("systolicPressure", systolicPressure);
+          setSelectedMeasurement((prevDetails) => ({
+            ...prevDetails,
+            systolicPressure
+          }));
+        }}
         handleBlur={formik.handleBlur}
         value={formik.values.systolicPressure}
         errorMessage={formik.errors.systolicPressure}
+        placeholder={"enter top number"}
+        submitted={submitted}
+        inEditMode={inEditMode}
       />
       <ValidatableInput
         hasError={
@@ -74,18 +89,36 @@ const MeasurementForm = ({
         label={"Diastolic Pressure"}
         id={"diastolicPressure"}
         handleChange={formik.handleChange}
+        handleChange={(diastolicPressure) => {
+          setSelectedMeasurement((prevDetails) => ({
+            ...prevDetails,
+            diastolicPressure
+          }));
+        }}
         handleBlur={formik.handleBlur}
         value={formik.values.diastolicPressure}
         errorMessage={formik.errors.diastolicPressure}
+        placeholder={"enter bottom number"}
+        submitted={submitted}
+        inEditMode={inEditMode}
       />
       <ValidatableInput
         hasError={!!formik.errors.heartRate && formik.touched.heartRate}
         label={"Heart Rate"}
         id={"heartRate"}
         handleChange={formik.handleChange}
+        handleChange={(heartRate) => {
+          setSelectedMeasurement((prevDetails) => ({
+            ...prevDetails,
+            heartRate
+          }));
+        }}
         handleBlur={formik.handleBlur}
         value={formik.values.heartRate}
         errorMessage={formik.errors.heartRate}
+        placeholder={"enter rate"}
+        submitted={submitted}
+        inEditMode={inEditMode}
       />
       <br />
       <Button

@@ -127,7 +127,7 @@ const HeartTrackerContainer = () => {
     });
   };
 
-  const updateMeasurement = (update) => {
+  const updateMeasurement = (update, callback) => {
     API.graphql(
       graphqlOperation(updateHeartMeasurement, {
         input: {
@@ -157,13 +157,14 @@ const HeartTrackerContainer = () => {
         );
         setSelectedMeasurement(defaultMeasurement);
         setInEditMode(false);
+        callback && callback();
       })
       .catch(() => {
         alert("whoops something went wrong!");
       });
   };
 
-  const addMeasurement = (measurement) => {
+  const addMeasurement = (measurement, callback) => {
     API.graphql(
       graphqlOperation(createHeartMeasurement, {
         input: {
@@ -190,6 +191,7 @@ const HeartTrackerContainer = () => {
         );
         setSelectedMeasurement(defaultMeasurement);
         setInEditMode(false);
+        callback && callback();
       })
       .catch(() => {
         alert("whoops something went wrong!");

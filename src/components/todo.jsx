@@ -25,6 +25,11 @@ const TodoList = () => {
         title={"Hide Todo list"}
       />
       <ul>
+        <li>make app responsive</li>
+        <li>update css so page doesn't look like crap</li>
+        <Done>fix bug where rates don't clear on submit</Done>
+        <li>fix bug where animated input accepts "TAB", "ENTER", ect</li>
+        <li>make animated input delete when holding down delete </li>
         <Done>add Form</Done>
         <Done>add</Done>
         <Done>delete</Done>
@@ -35,16 +40,13 @@ const TodoList = () => {
         <Done>add icons for delete and edit</Done>
         <Done>add icons for up down flat</Done>
         <Done>color code measurements</Done>
-        <li>add scroll</li>
-        <li>add fancy input</li>
+        <Done>add scroll</Done>
+        <Done>add fancy input</Done>
         <Done>add graphQL(maybe)</Done>
         <Done>add patient lookup (maybe)</Done>
-        <li>update css so page doesn't look like crap</li>
-        <li>add patient lookup (maybe)</li>
-        <li>add an error message modal</li>
+        <Done>add an error messages</Done>
         <Done>wire delete functionality to graphQL and dynamo</Done>
         <Done>wire update functionality to graphQL and dynamo</Done>
-        <li>make app responsive</li>
       </ul>
     </ToDo>
   ) : (
