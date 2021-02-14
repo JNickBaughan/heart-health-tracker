@@ -8,10 +8,10 @@ const Grid = styled.div`
   overflow-x: hidden;
   margin: 0 auto;
   height: 9.5em;
-  width: 85em;
+  width: 90%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
   column-gap: 3px;
   row-gap: 3px;
   border: 1px solid black;
@@ -19,11 +19,7 @@ const Grid = styled.div`
   padding-left: 16px;
   grid-template-areas:
     "date top rate"
-    "date top rate"
-    "controls top rate"
-    "controls bottom rate"
-    "blank bottom rate"
-    "blank bottom rate";
+    "date bottom rate";
 `;
 
 const DatePanel = styled.div`
@@ -34,19 +30,26 @@ const DatePanel = styled.div`
   line-height: 100px;
   white-space: nowrap;
   font-size: 1.17em;
+
+  display: flex;
+  flex-direction: column;
 `;
 
 const ControlPanel = styled.div`
-  grid-area: controls;
+  display: flex;
   height: 100%;
   width: 100%;
   margin: 0 auto;
+  padding: 0 35%;
 `;
 
 const ActionIcon = styled.div`
   width: 28px;
   height: ${(props) => `${props.height}px`};
   background: url(${(props) => props.url});
+  bottom: ${(props) => `${props.bottom ? props.bottom + "px" : 0}`};
+  position: relative;
+  margin: 0 9px;
 `;
 
 const TopPanel = styled.div`
@@ -84,9 +87,9 @@ const DeltaDisplay = styled.span`
   color: ${(props) =>
     props.delta > 0 ? "red" : props.delta < 0 ? "blue" : "grey"};
   font-size: 0.5em;
-  position: absolute;
-  top: -15px;
-  right: 120px;
+  position: relative;
+  top: -26px;
+  right: 6px;
   &:after {
     border-right: solid 8px transparent;
     border-left: solid 8px transparent;
@@ -126,21 +129,25 @@ const MeasurementPanel = ({
 
   return (
     <Grid>
-      <DatePanel>{d.toDateString()}</DatePanel>
-      <ControlPanel>
-        <ActionIcon
-          area="edit"
-          url={"/edit.png"}
-          height={33}
-          onClick={onSelect}
-        />
-        <ActionIcon
-          area="delete"
-          url={"/delete.png"}
-          height={26}
-          onClick={deleteMeasurement}
-        />
-      </ControlPanel>
+      <DatePanel>
+        <div>{d.toDateString()}</div>
+        <ControlPanel>
+          <ActionIcon
+            area="edit"
+            url={"/edit.png"}
+            height={33}
+            onClick={onSelect}
+            bottom={3}
+          />
+          <ActionIcon
+            area="delete"
+            url={"/delete.png"}
+            height={26}
+            onClick={deleteMeasurement}
+          />
+        </ControlPanel>
+      </DatePanel>
+
       <TopPanel color={getColorCodeForSystolic(parseInt(systolicPressure, 10))}>
         {systolicPressure} mm Hg
         {renderDelta(systolicPressureDelta, systolicPressure)}

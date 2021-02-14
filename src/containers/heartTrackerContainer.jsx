@@ -40,7 +40,7 @@ const FormPanel = styled.div`
 const GridPanel = styled.div`
   grid-area: grid;
   height: 100%;
-  width: 100%;
+  width: 90%;
   border-bottom: 3px solid black;
   overflow-y: scroll;
 `;
